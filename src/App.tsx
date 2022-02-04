@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 import DUMMY_WORDS from './DUMMY_WORDS';
 import Word from './components/word/Word';
+import IWord from './interfaces/word.interface';
 
 const App = () => {
 	const [wordsList, setWordsList] = useState<Array<any>>([]);
@@ -11,11 +12,15 @@ const App = () => {
 		setWordsList(DUMMY_WORDS);
 	}, []);
 
-	console.log(wordsList);
+	const updateWordItem = (updatedWord: IWord) => {
+		const updatedList = wordsList.map((wordItem: IWord) => {
+			if (wordItem._id === updatedWord._id) {
+				return updatedWord;
+			}
+			return wordItem;
+		});
 
-	const updateWordItem = (text: string) => {
-		console.log('updated');
-		console.log(text);
+		setWordsList(updatedList);
 	};
 
 	// const getWordsList = async () => {
