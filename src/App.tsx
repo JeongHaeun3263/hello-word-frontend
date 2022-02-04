@@ -13,6 +13,11 @@ const App = () => {
 
 	console.log(wordsList);
 
+	const updateWordItem = (text: string) => {
+		console.log('updated');
+		console.log(text);
+	};
+
 	// const getWordsList = async () => {
 	// 	try {
 	// 		const res = await axios.get('http://localhost:4000/words');
@@ -28,7 +33,7 @@ const App = () => {
 			<h1>Hello Word</h1>
 			<div className='words-list'>
 				{wordsList.map((wordItem, i) => {
-					return <Word word={wordItem} key={i} />;
+					return <Word word={wordItem} key={i} onWordUpdate={updateWordItem} />;
 				})}
 			</div>
 		</div>

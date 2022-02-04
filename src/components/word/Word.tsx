@@ -1,21 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, FocusEvent } from 'react';
 import IWord from '../../interfaces/word.interface';
 
 import './Word.css';
 
 type Props = {
 	word: IWord;
+	onWordUpdate: Function;
 };
 
-const wordInputUpdated = () => {
-	console.log('word has been changed');
-};
+const Word: FC<Props> = ({ word, onWordUpdate }) => {
+	const wordInputUpdated = (event: FocusEvent<HTMLHeadingElement, Element>) => {
+		const text = event.currentTarget.textContent;
+		onWordUpdate(text);
+	};
 
-const Word: FC<Props> = ({ word }) => {
 	return (
 		<div className='word'>
 			<h3
-				onBlur={wordInputUpdated}
 				className='word__title'
 				contentEditable={true}
 				suppressContentEditableWarning={true}
@@ -30,6 +31,7 @@ const Word: FC<Props> = ({ word }) => {
 				{word.form}
 			</span>
 			<p
+				onBlur={wordInputUpdated}
 				className='word__meaning'
 				contentEditable={true}
 				suppressContentEditableWarning={true}
