@@ -10,8 +10,10 @@ type Props = {
 
 const Word: FC<Props> = ({ word, onWordUpdate }) => {
 	const wordInputUpdated = (event: FocusEvent<HTMLHeadingElement, Element>) => {
-		console.log('word input updated');
 		const newMeaningValue = event.currentTarget.textContent;
+		if (newMeaningValue === word.meaning) {
+			return;
+		}
 		const updatedWordObj: IWord = {
 			...word,
 			meaning: newMeaningValue || '',

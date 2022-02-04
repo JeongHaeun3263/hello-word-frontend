@@ -6,11 +6,25 @@ import Word from './components/word/Word';
 import IWord from './interfaces/word.interface';
 
 const App = () => {
-	const [wordsList, setWordsList] = useState<Array<any>>([]);
+	const [wordsList, setWordsList] = useState<Array<IWord>>([]);
 
 	useEffect(() => {
-		setWordsList(DUMMY_WORDS);
+		const wordListFromLocalStorageString = localStorage.getItem('my-words');
+		if (wordListFromLocalStorageString) {
+			const wordListFromLocalStorageArray = JSON.parse(
+				wordListFromLocalStorageString
+			);
+			setWordsList(wordListFromLocalStorageArray);
+		} else {
+			setWordsList(DUMMY_WORDS);
+		}
 	}, []);
+
+	useEffect(() => {
+		console.log('saving to localstorage');
+		const wordsListString = JSON.stringify(wordsList);
+		localStorage.setItem('my-words', wordsListString);
+	}, [wordsList]);
 
 	const updateWordItem = (updatedWord: IWord) => {
 		const updatedList = wordsList.map((wordItem: IWord) => {
