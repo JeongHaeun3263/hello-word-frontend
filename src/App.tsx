@@ -4,6 +4,7 @@ import './App.css';
 import DUMMY_WORDS from './DUMMY_WORDS';
 import Word from './components/word/Word';
 import IWord from './interfaces/word.interface';
+import Navbar from './components/navbar/Navbar';
 
 const App = () => {
 	const [wordsList, setWordsList] = useState<Array<IWord>>([]);
@@ -21,7 +22,6 @@ const App = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log('saving to localstorage');
 		const wordsListString = JSON.stringify(wordsList);
 		localStorage.setItem('my-words', wordsListString);
 	}, [wordsList]);
@@ -49,7 +49,7 @@ const App = () => {
 
 	return (
 		<div className='App'>
-			<h1>Hello Word</h1>
+			<Navbar />
 			<div className='words-list'>
 				{wordsList.map((wordItem, i) => {
 					return <Word word={wordItem} key={i} onWordUpdate={updateWordItem} />;
