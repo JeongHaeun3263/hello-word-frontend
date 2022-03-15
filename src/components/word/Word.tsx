@@ -1,4 +1,4 @@
-import React, { FC, FocusEvent } from 'react';
+import React, { FC, FocusEvent, useState } from 'react';
 import IWord from '../../interfaces/word.interface';
 
 import './Word.css';
@@ -9,7 +9,10 @@ type Props = {
 };
 
 const Word: FC<Props> = ({ word, onWordUpdate }) => {
+	const [isFocused, setIsFocused] = useState(false);
+
 	const wordInputUpdated = (event: FocusEvent<HTMLHeadingElement, Element>) => {
+		setIsFocused(false);
 		const newMeaningValue = event.currentTarget.textContent;
 		if (newMeaningValue === word.meaning) {
 			return;
@@ -22,11 +25,12 @@ const Word: FC<Props> = ({ word, onWordUpdate }) => {
 	};
 
 	return (
-		<div className='word'>
+		<div className={`word ${isFocused && 'word-focused'}`}>
 			<h3 className='word__title'>{word.title}</h3>
 			<span className='word__form'>{word.form}</span>
 			<p
 				onBlur={wordInputUpdated}
+				onFocus={() => setIsFocused(true)}
 				className='word__meaning'
 				contentEditable={true}
 				suppressContentEditableWarning={true}
