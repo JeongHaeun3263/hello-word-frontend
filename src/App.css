@@ -3,13 +3,12 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: auto;
+	gap: 2.4rem;
 	min-height: 100%;
 }
 
 .words-list {
 	max-width: 1200px;
-	margin: 2.4rem;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2.4rem;
